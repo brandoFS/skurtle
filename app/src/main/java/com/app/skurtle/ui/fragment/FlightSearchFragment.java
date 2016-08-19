@@ -61,13 +61,9 @@ public class FlightSearchFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         dateText.setText(simpleDateFormat.format(date));
-
-
         return view;
     }
 
@@ -142,19 +138,6 @@ public class FlightSearchFragment extends Fragment {
                                 })
                                 .show();
                     } else {
-                        /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-
-
-                        Date date = null;
-                        try {
-                            date = simpleDateFormat.parse(flightModel.flightStatuses.get(0).operationalTimes.scheduledGateArrival.dateLocal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        String arrivalDate = simpleDateFormat.format(date);*/
-
-
                         mCallback.showResultsFragment(flightModel.appendix.airlines.get(0).name,
                                 flightModel.flightStatuses.get(0).carrierFsCode, flightModel.flightStatuses.get(0).flightNumber,
                                 flightModel.appendix.airports.get(0).city, flightModel.appendix.airports.get(0).cityCode,
@@ -173,11 +156,9 @@ public class FlightSearchFragment extends Fragment {
                 @Override
                 public void onFailure(Call<FlightModel> call, Throwable t) {
                     System.out.println("Request failed");
-
                 }
             });
         }
     }
-
 
 }
