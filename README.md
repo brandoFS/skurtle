@@ -1,5 +1,5 @@
 # skurtle - Flight search Prototype
-Brando Madden 08/2016 
+Brando Madden - 08/2016 
 
 Instructions: 
 
@@ -11,6 +11,8 @@ Clone the Git repo to a system directory
 In Android studio import the Skurtle Repo as a new Android project. 
 
 Click the run button at the top or use the command line to build the project.
+
+The app is very simple, starts out right on the flight search page. You can search for a flight using the flight number, airline code, and date. If results are found they will be shown on a summary page, from the summary page the user can "book" a rental car with one click. 
 
 Libraries Used: 
 
