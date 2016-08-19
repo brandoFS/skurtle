@@ -14,10 +14,10 @@ Click the run button at the top or use the command line to build the project.
 
 Libraries Used: 
 
-ButterKnife for Android view binding
-Gson for JSON Parsing
-Retrofit for HTTP client
-Android Support Libraries for views
+*ButterKnife for Android view binding
+*Gson for JSON Parsing
+*Retrofit for HTTP client
+*Android Support Libraries for views
 
 Improvements:
 
