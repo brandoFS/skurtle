@@ -91,7 +91,6 @@
                 android:hint="@string/enter_date_dd_mm_yyyy"
                 android:maxLength="10"
                 android:singleLine="true"
-                android:text="2016/08/17"
                 android:textSize="@dimen/font_medium" />
 
         </android.support.design.widget.TextInputLayout>

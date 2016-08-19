@@ -240,6 +240,30 @@ public class FlightModel {
 
     }
 
+    public static String getStatus(String code) {
+        switch (code) {
+            case "S":
+                return "Scheduled";
+            case "A":
+                return "Active";
+            case "U":
+                return "Unknown";
+            case "R":
+                return "Redirected";
+            case "L":
+                return "Landed";
+            case "D":
+                return "Diverted";
+            case "C":
+                return "Cancelled";
+            case "NO":
+                return "Not Operatonal";
+            default:
+                break;
+
+        }
+        return "Unknown";
+    }
 
 }
 

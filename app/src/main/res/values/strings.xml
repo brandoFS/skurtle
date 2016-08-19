@@ -8,8 +8,10 @@
     <string name="enter_flight_number">Flight Number</string>
     <string name="enter_airline_name_or_code">Airline Code (AA, B6, etc)</string>
     <string name="search">Search</string>
-    <string name="enter_date_dd_mm_yyyy">Date (DD-MM-YYYY)</string>
+    <string name="enter_date_dd_mm_yyyy">Date (YYYY/MM/DD)</string>
     <string name="airline_error">Airline Required</string>
     <string name="flight_error">Flight Number Required</string>
-    <string name="date_error">Date  of Arrival Required</string>
+    <string name="date_empty_error">Date  of Arrival Required</string>
+    <string name="date_error">Invalid Date. Must be format YYYY/MM/DD</string>
+
 </resources>

@@ -1,12 +1,10 @@
 package com.app.skurtle.ui.activity;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.res.Resources;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,7 +20,7 @@ import com.app.skurtle.ui.fragment.FlightSearchResultsFragment;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, FlightSearchFragment.OnResultsFoundListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FlightSearchFragment.OnResultsFoundListener, FlightSearchResultsFragment.BookCarListener {
 
 
     @Override
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity
         FlightSearchFragment flightSearchFragment = new FlightSearchFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         ft.replace(R.id.drawer_content, flightSearchFragment, flightSearchFragment.getTag())
                 .commit();
@@ -99,13 +96,42 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void showResultsFragment(String airlineName, String carrierCode, String flightNumber, String arrCity, String arrCityCode, String depCity, String depCityCode, String arrivalTime, String departureTime, String status) {
-        FlightSearchResultsFragment flightSearchResultsFragment = FlightSearchResultsFragment.newInstance(airlineName, carrierCode,  flightNumber,  arrCity,  arrCityCode,  depCity,  depCityCode,  arrivalTime,  departureTime, status);
+    public void showResultsFragment(String airlineName, String carrierCode, String flightNumber, String arrCity, String arrCityCode, String depCity, String depCityCode, String arrivalTime, String departureTime, String arrGate, String arrTerminal, String depGate, String depTerminal, String status) {
+        FlightSearchResultsFragment flightSearchResultsFragment = FlightSearchResultsFragment.newInstance(airlineName, carrierCode, flightNumber, arrCity, arrCityCode, depCity, depCityCode, arrivalTime, departureTime, arrGate, depGate, arrTerminal, depTerminal, status);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-        .addToBackStack(null)
-        .replace(R.id.drawer_content, flightSearchResultsFragment, flightSearchResultsFragment.getTag())
+                .addToBackStack(null)
+                .replace(R.id.drawer_content, flightSearchResultsFragment, flightSearchResultsFragment.getTag())
                 .commit();
+    }
+
+
+    @Override
+    public void carConfirmation(boolean confirmed) {
+        FlightSearchFragment flightSearchFragment = new FlightSearchFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+            fragmentManager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        ft.replace(R.id.drawer_content, flightSearchFragment, flightSearchFragment.getTag())
+                .commit();
+        if (confirmed) {
+            new android.support.v7.app.AlertDialog.Builder(this)
+                    .setTitle("Success")
+                    .setMessage("Your Skurt has been reserved successfully. We will update your reservation automatically if your flight status changes")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
     }
 }
