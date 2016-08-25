@@ -14,6 +14,7 @@ import com.app.skurtle.R;
 import com.app.skurtle.model.FlightModel;
 import com.app.skurtle.rest.RetrofitApi;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -138,12 +139,26 @@ public class FlightSearchFragment extends Fragment {
                                 })
                                 .show();
                     } else {
+                        String[] arrivalTimes = flightModel.flightStatuses.get(0).operationalTimes.scheduledGateArrival.dateLocal.split("T");
+                        String arrivalTime = arrivalTimes[1];
+                        String[] departureTimes = flightModel.flightStatuses.get(0).operationalTimes.publishedDeparture.dateLocal.split("T");
+                        String departureTime = departureTimes[1];
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                        try {
+                            Date date = simpleDateFormat.parse(arrivalTime);
+                            arrivalTime = simpleDateFormat.format(date);
+                            date = simpleDateFormat.parse(departureTime);
+                            departureTime = simpleDateFormat.format(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                         mCallback.showResultsFragment(flightModel.appendix.airlines.get(0).name,
                                 flightModel.flightStatuses.get(0).carrierFsCode, flightModel.flightStatuses.get(0).flightNumber,
                                 flightModel.appendix.airports.get(0).city, flightModel.appendix.airports.get(0).cityCode,
                                 flightModel.appendix.airports.get(1).city, flightModel.appendix.airports.get(1).cityCode,
-                                flightModel.flightStatuses.get(0).operationalTimes.scheduledGateArrival.dateLocal,
-                                flightModel.flightStatuses.get(0).operationalTimes.publishedDeparture.dateLocal,
+                                arrivalTime,
+                                departureTime,
                                 flightModel.flightStatuses.get(0).airportResources.arrivalGate,
                                 flightModel.flightStatuses.get(0).airportResources.departureGate,
                                 flightModel.flightStatuses.get(0).airportResources.arrivalTerminal,
